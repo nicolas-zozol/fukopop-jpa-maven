@@ -29,11 +29,14 @@ public class JpaApplication {
 			em.persist(starWars);
 		
 		 FunkoPop gandalf = new FunkoPop("Gandalf", lotr);
+		 	gandalf.setWaterproof(true);
+		 	em.persist(gandalf);
 		 FunkoPop ace = new FunkoPop("Ace", onepiece);
-	        gandalf.setWaterproof(true);
-	        
-	        em.persist(gandalf);
-	        em.persist(ace);
+		 	em.persist(ace);
+		 FunkoPop yoda = new FunkoPop("Yoda", starWars);
+		 	em.persist(yoda);
+		 FunkoPop aragorn = new FunkoPop("Aragorn", lotr);
+		 	em.persist(aragorn);
 	        
 	        //Faisons joujou :
 	        int idGandalf= gandalf.getId();
@@ -49,13 +52,15 @@ public class JpaApplication {
 		System.out.println("  ========== NEW QUERY ======= ");
 		
 		
-		EmFactory.transaction( e -> {
+		EmFactory.transaction( em2 -> {
 			
-			String query = "SELECT f FROM FunkoPop f ";
-					
+			String query = "SELECT f FROM FunkoPop f WHERE f.universe = :universe ";
+					//:universe = on doit décrire l'universe
 			
 			List<FunkoPop> list = 
-					e.createQuery(query, FunkoPop.class).getResultList();
+					em2.createQuery(query, FunkoPop.class)
+					.setParameter("universe", lotr)
+					.getResultList();
 			
 			System.out.println(list);
 			

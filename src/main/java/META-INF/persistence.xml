@@ -3,10 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
-	<persistence-unit name="fora" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="funkopop" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/funkopop" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.99.100:3306/funkopop" />
 			<property name="javax.persistence.jdbc.user" value="admin" />
 			<property name="javax.persistence.jdbc.password" value="mypass" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
