@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.omg.CORBA.UnionMember;
+
 import io.robusta.fora.EmFactory;
 import io.robusta.jpa.demo.entities.FunkoPop;
+import io.robusta.jpa.demo.entities.Universe;
 
 public class JpaApplication {
 
@@ -16,12 +19,30 @@ public class JpaApplication {
 		em.getTransaction().begin();
 		System.out.println("  ========== STARTING WORK ======= ");
 
-		 FunkoPop funkoPop = new FunkoPop();
-	        funkoPop.setName("Gandalf");
-	        funkoPop.setUniverse("LOTR");
-	        funkoPop.setWaterproof(true);
-	        em.persist(funkoPop);
+		Universe lotr = new Universe("LOTR");
+		Universe starTrek = new Universe("Star Trek");
+		Universe starWars = new Universe("Star Wars");
 		
+		     em.persist(lotr);
+		     em.persist(starTrek);
+		     em.persist(starWars);
+	     
+		FunkoPop gandalf = new FunkoPop("Gandalf", lotr);
+	        
+	    FunkoPop aragorn = new FunkoPop("Aragorn", lotr);
+	    	aragorn.setWaterproof(true);
+	     	
+	    em.persist(gandalf);
+	    em.persist(aragorn);
+	     
+
+	     
+	     int idGandalf = gandalf.getId();
+	     System.out.println("id of Gandalf : "+idGandalf);
+	     FunkoPop gandalfFetched = em.find(FunkoPop.class, idGandalf);
+	     System.out.println("gandalf fetched : "+gandalfFetched.getName());
+	     	
+	     	
 		System.out.println("  ========== COMMIT ======= ");
 		em.getTransaction().commit();
 		em.close();
@@ -61,7 +82,7 @@ public class JpaApplication {
 		});*/
 		
 		
-		
+		EmFactory.getInstance().close();
 		
 		
 		
