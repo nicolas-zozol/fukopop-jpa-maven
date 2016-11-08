@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class FunkoPop
@@ -14,7 +15,10 @@ public class FunkoPop
 	
 
 	private String name;
-	private String universe;
+	
+	@ManyToOne
+	private Universe universe;
+	
 	private boolean waterproof;
 	private double latitude;
 	private double longitude;
@@ -23,15 +27,20 @@ public class FunkoPop
 	{
 	}
 
-	public FunkoPop( int id, String name, String universe, boolean waterproof, double latitude, double longitude )
-	{
-		this.id = id;
+	public FunkoPop(String name, Universe universe) {
+		super();
 		this.name = name;
 		this.universe = universe;
-		this.waterproof = waterproof;
-		this.latitude = latitude;
-		this.longitude = longitude;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 	public String getName()
 	{
@@ -43,53 +52,31 @@ public class FunkoPop
 		this.name = name;
 	}
 
-	public String getUniverse()
-	{
+
+
+	public Universe getUniverse() {
 		return universe;
 	}
 
-	public void setUniverse( String universe )
-	{
+
+	public void setUniverse(Universe universe) {
 		this.universe = universe;
 	}
 
-	public boolean isWaterproof()
-	{
+
+	public boolean isWaterproof() {
 		return waterproof;
 	}
 
-	public void setWaterproof( boolean waterproof )
-	{
+
+	public void setWaterproof(boolean waterproof) {
 		this.waterproof = waterproof;
 	}
 
-	public int getId()
-	{
-		return id;
+	@Override
+	public String toString() {
+		return this.name +" ("+this.universe.name+")";
 	}
 
-	public void setId( int id )
-	{
-		this.id = id;
-	}
-
-	public double getLatitude()
-	{
-		return latitude;
-	}
-
-	public void setLatitude( double latitude )
-	{
-		this.latitude = latitude;
-	}
-
-	public double getLongitude()
-	{
-		return longitude;
-	}
-
-	public void setLongitude( double longitude )
-	{
-		this.longitude = longitude;
-	}
+	
 }

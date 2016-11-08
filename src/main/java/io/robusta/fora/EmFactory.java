@@ -11,7 +11,7 @@ public class EmFactory {
 	private EmFactory() {
 		// "fora" was the value of the name attribute of the
 		// persistence.xml file.
-		instance = Persistence.createEntityManagerFactory("fora");
+		instance = Persistence.createEntityManagerFactory("funkopop");
 	}
 
 	public EntityManager getEntityManager() {
@@ -24,7 +24,7 @@ public class EmFactory {
 	
 	public static EntityManagerFactory getInstance(){
 		if (instance == null){
-			instance = Persistence.createEntityManagerFactory("fora");
+			instance = Persistence.createEntityManagerFactory("funkopop");
 		}
 		return instance;
 	}

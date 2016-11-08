@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.hql.internal.ast.tree.UnaryArithmeticNode;
+
 import io.robusta.fora.EmFactory;
 import io.robusta.jpa.demo.entities.FunkoPop;
+import io.robusta.jpa.demo.entities.Universe;
 
 public class JpaApplication {
 
@@ -16,11 +19,28 @@ public class JpaApplication {
 		em.getTransaction().begin();
 		System.out.println("  ========== STARTING WORK ======= ");
 
-		 FunkoPop funkoPop = new FunkoPop();
-	        funkoPop.setName("Gandalf");
-	        funkoPop.setUniverse("LOTR");
-	        funkoPop.setWaterproof(true);
-	        em.persist(funkoPop);
+		Universe lotr = new Universe("LOTR");
+		Universe onepiece = new Universe("One Piece");
+		Universe starTrek = new Universe("Star Trek");
+		Universe starWars = new Universe("Star Wars");
+			em.persist(onepiece);
+			em.persist(lotr);
+			em.persist(starTrek);
+			em.persist(starWars);
+		
+		 FunkoPop gandalf = new FunkoPop("Gandalf", lotr);
+		 FunkoPop ace = new FunkoPop("Ace", onepiece);
+	        gandalf.setWaterproof(true);
+	        
+	        em.persist(gandalf);
+	        em.persist(ace);
+	        
+	        //Faisons joujou :
+	        int idGandalf= gandalf.getId();
+	        System.out.println("id of gandalf : "+idGandalf);
+	        FunkoPop gandalfFetched = em.find(FunkoPop.class, idGandalf);
+	        System.out.println("gandalf fetched : "+gandalfFetched.getName());
+	        
 		
 		System.out.println("  ========== COMMIT ======= ");
 		em.getTransaction().commit();
@@ -60,7 +80,7 @@ public class JpaApplication {
 				
 		});*/
 		
-		
+		EmFactory.getInstance().close();
 		
 		
 		
